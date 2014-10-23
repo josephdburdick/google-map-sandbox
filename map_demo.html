@@ -3,6 +3,7 @@
 <head>
     <style type="text/css">
         html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+        #map-canvas{height: 90%;}
         .labels {
             color: white;
             background-color: red;
@@ -11,6 +12,10 @@
             text-align: center;
             width: 10px;
             white-space: nowrap;
+        }
+        .map-marker{
+            background: red;
+            color: white;
         }
     </style>
     <script type="text/javascript"
@@ -27,59 +32,77 @@
         function initialize() {
             //see styled maps wizard at: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 
-            var stylesArray=[
-                {
+            // Custom map pin from SVG
+            var yaleMap = function() {
+                var parent = this;
+                this.mapPin = [{
+                    path: 'M8,0C4.904,0,2.394,2.51,2.394,5.606c0,0.237,0.019,0.468,0.048,0.697c0.479,4.378,5.194,9.425,5.194,9.42c0.084,0.094,0.165,0.153,0.243,0.195l0.004,0.002l0.157,0.049l0.157-0.049l0.004-0.002c0.078-0.042,0.159-0.102,0.243-0.195c0,0,4.648-5.055,5.115-9.435c0.028-0.226,0.047-0.455,0.047-0.688C13.605,2.51,11.096,0,8,0z M8,9.212c-1.988,0-3.606-1.618-3.606-3.606S6.012,2,8,2c1.988,0,3.605,1.618,3.605,3.606S9.988,9.212,8,9.212z',
+                    fillColor: 'red',
+                    fillOpacity: 0.5,
+                    scale: 2,
+                    strokeColor: 'blue',
+                    strokeWeight: 2,
+                    strokeOpacity: 0.2
+                }];
+                this.mapStyle = [{
                     "elementType": "geometry.fill",
                     "stylers": [
                         { "visibility": "on" },
                         { "hue": "#0066ff" }
                     ]
-                }
-            ];
-
-            //basic map setup options
-            var mapOptions = {
-                center: { lat: 41.3069513, lng: -72.9306178},
-                zoom: 15,
-                //disableDefaultUI removes map controls from the UI
-                disableDefaultUI: true,
-                styles: stylesArray
+                }];
+                this.mapOptions = [{
+                    parent: this,
+                    center: { lat: 41.3069513, lng: -72.9306178},
+                    zoom: 15,
+                    //disableDefaultUI removes map controls from the UI
+                    disableDefaultUI: true,
+                    styles: function() { debugger; console.log(parent.mapStyle[0]); return parent.mapStyle }
+                }];
             };
-            // Custom map pin from SVG
-            var mapPin = {
-                path: 'M8,0C4.904,0,2.394,2.51,2.394,5.606c0,0.237,0.019,0.468,0.048,0.697c0.479,4.378,5.194,9.425,5.194,9.42c0.084,0.094,0.165,0.153,0.243,0.195l0.004,0.002l0.157,0.049l0.157-0.049l0.004-0.002c0.078-0.042,0.159-0.102,0.243-0.195c0,0,4.648-5.055,5.115-9.435c0.028-0.226,0.047-0.455,0.047-0.688C13.605,2.51,11.096,0,8,0z M8,9.212c-1.988,0-3.606-1.618-3.606-3.606S6.012,2,8,2c1.988,0,3.605,1.618,3.605,3.606S9.988,9.212,8,9.212z',
-                fillColor: 'red',
-                fillOpacity: 0.8,
-                scale: 1,
-                strokeColor: 'red',
-                strokeWeight: 5
-            };
-
-            //map looks for a div with the given name
-            var map = new google.maps.Map(document.getElementById('map-canvas'),
-                    mapOptions);
-
-            //object container for locations
-            var pubLatLong = new google.maps.LatLng(41.305558,-72.928087);
-
-            var marker_image='blue_map_marker.png';
-
-            var marker = new MarkerWithLabel({
-                position: pubLatLong,
-                map: map,
-                labelContent: "1",
-                labelAnchor: new google.maps.Point(5,40),
-                labelClass: "labels",
-                labelInBackground: false,
-                icon: mapPin
-            });
+            var myMap = new yaleMap();
+            // debugger;
+            console.log(myMap.mapOptions[0].styles() === myMap.mapOptions[0]);
             //content string is used by the InfoWindow. This can be styled HTML/CSS
-            var contentString="description of beers as found at pub";
+            var contentString=[
+                '<div class="map-marker">',
+                    '<header>Test of the header</header>',
+                        '<main>Hello</main>',
+                    '<footer>Footer text</footer>',
+                '</div>'
+            ].join('\n');
 
             //InfoWindow can be clicked in order to expose the contentString in a box
             var pubInfoWindow = new google.maps.InfoWindow({
                 content: contentString
             });
+
+            //basic map setup options
+            // var mapOptions = {
+            //     center: { lat: 41.3069513, lng: -72.9306178},
+            //     zoom: 15,
+            //     //disableDefaultUI removes map controls from the UI
+            //     disableDefaultUI: true,
+            //     styles: yale.mapStyle
+            // };
+            //map looks for a div with the given name
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                    myMap.mapOptions[0]);
+
+            //object container for locations
+            var pubLatLong = new google.maps.LatLng(41.305558,-72.928087);
+
+            // var marker_image='blue_map_marker.png';
+            var marker = new MarkerWithLabel({
+                position: pubLatLong,
+                map: map,
+                labelContent: "1",
+                labelAnchor: new google.maps.Point(-3,0),
+                labelClass: "labels",
+                labelInBackground: false,
+                icon: myMap.mapPin[0]
+            });
+           
 
             //Adds event listener that invokes InfoWindow
             google.maps.event.addListener(marker, 'click', function(){
