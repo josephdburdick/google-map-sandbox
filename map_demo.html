@@ -27,7 +27,294 @@
 
 </head>
 <body>
+    
+    <script type="text/javascript" charset="utf-8">
+        var buildings = [
+            {
+                "longitude": -6.3984379,
+                "latitude": -4.985432,
+                "type": "building",
+                "count": 0,
+                "id": 100,
+                "name": "Building 0"
+            },
+            {
+                "longitude": -67.2825645,
+                "latitude": -13.651727,
+                "type": "building",
+                "count": 1,
+                "id": 101,
+                "name": "Building 1"
+            },
+            {
+                "longitude": -51.4946619,
+                "latitude": -31.385584,
+                "type": "building",
+                "count": 2,
+                "id": 102,
+                "name": "Building 2"
+            },
+            {
+                "longitude": -45.6328615,
+                "latitude": -36.688178,
+                "type": "building",
+                "count": 3,
+                "id": 103,
+                "name": "Building 3"
+            },
+            {
+                "longitude": -58.9133735,
+                "latitude": -29.122919,
+                "type": "building",
+                "count": 4,
+                "id": 104,
+                "name": "Building 4"
+            },
+            {
+                "longitude": -41.4633554,
+                "latitude": -11.359864,
+                "type": "building",
+                "count": 5,
+                "id": 105,
+                "name": "Building 5"
+            },
+            {
+                "longitude": -39.4880418,
+                "latitude": -38.759508,
+                "type": "building",
+                "count": 6,
+                "id": 106,
+                "name": "Building 6"
+            },
+            {
+                "longitude": -62.6922894,
+                "latitude": -14.385666,
+                "type": "building",
+                "count": 7,
+                "id": 107,
+                "name": "Building 7"
+            },
+            {
+                "longitude": -25.9815126,
+                "latitude": -39.387753,
+                "type": "building",
+                "count": 8,
+                "id": 108,
+                "name": "Building 8"
+            },
+            {
+                "longitude": -66.6698384,
+                "latitude": -21.450356,
+                "type": "building",
+                "count": 9,
+                "id": 109,
+                "name": "Building 9"
+            },
+            {
+                "longitude": -43.1589297,
+                "latitude": -32.345821,
+                "type": "building",
+                "count": 10,
+                "id": 110,
+                "name": "Building 10"
+            },
+            {
+                "longitude": -58.2131352,
+                "latitude": -21.127897,
+                "type": "building",
+                "count": 11,
+                "id": 111,
+                "name": "Building 11"
+            },
+            {
+                "longitude": -45.8337878,
+                "latitude": -5.749441,
+                "type": "building",
+                "count": 12,
+                "id": 112,
+                "name": "Building 12"
+            },
+            {
+                "longitude": -14.3118688,
+                "latitude": -13.71938,
+                "type": "building",
+                "count": 13,
+                "id": 113,
+                "name": "Building 13"
+            },
+            {
+                "longitude": -56.7585961,
+                "latitude": -37.757631,
+                "type": "building",
+                "count": 14,
+                "id": 114,
+                "name": "Building 14"
+            },
+            {
+                "longitude": -32.437055,
+                "latitude": -4.072541,
+                "type": "building",
+                "count": 15,
+                "id": 115,
+                "name": "Building 15"
+            },
+            {
+                "longitude": -42.566456,
+                "latitude": -16.187506,
+                "type": "building",
+                "count": 16,
+                "id": 116,
+                "name": "Building 16"
+            },
+            {
+                "longitude": -29.4115136,
+                "latitude": -0.438366,
+                "type": "building",
+                "count": 17,
+                "id": 117,
+                "name": "Building 17"
+            },
+            {
+                "longitude": -27.2253157,
+                "latitude": -2.643286,
+                "type": "building",
+                "count": 18,
+                "id": 118,
+                "name": "Building 18"
+            },
+            {
+                "longitude": -38.151648,
+                "latitude": -8.646338,
+                "type": "building",
+                "count": 19,
+                "id": 119,
+                "name": "Building 19"
+            },
+            {
+                "longitude": -66.3676244,
+                "latitude": -27.137366,
+                "type": "building",
+                "count": 20,
+                "id": 120,
+                "name": "Building 20"
+            },
+            {
+                "longitude": -22.860787,
+                "latitude": -2.248898,
+                "type": "building",
+                "count": 21,
+                "id": 121,
+                "name": "Building 21"
+            },
+            {
+                "longitude": -8.4884414,
+                "latitude": -38.819149,
+                "type": "building",
+                "count": 22,
+                "id": 122,
+                "name": "Building 22"
+            },
+            {
+                "longitude": -36.7804157,
+                "latitude": -25.511688,
+                "type": "building",
+                "count": 23,
+                "id": 123,
+                "name": "Building 23"
+            },
+            {
+                "longitude": -52.4416191,
+                "latitude": -31.663243,
+                "type": "building",
+                "count": 24,
+                "id": 124,
+                "name": "Building 24"
+            }
+        ];
 
+        var parking = [
+            {
+                "longitude": -33.6737967,
+                "latitude": -33.463386,
+                "type": "parking",
+                "count": 0,
+                "id": 50,
+                "name": "Parking Lot 0"
+            },
+            {
+                "longitude": -25.5421243,
+                "latitude": -13.993132,
+                "type": "parking",
+                "count": 1,
+                "id": 51,
+                "name": "Parking Lot 1"
+            },
+            {
+                "longitude": -28.0503613,
+                "latitude": -13.51951,
+                "type": "parking",
+                "count": 2,
+                "id": 52,
+                "name": "Parking Lot 2"
+            },
+            {
+                "longitude": -26.7247,
+                "latitude": -12.920583,
+                "type": "parking",
+                "count": 3,
+                "id": 53,
+                "name": "Parking Lot 3"
+            },
+            {
+                "longitude": -28.6029552,
+                "latitude": -40.709084,
+                "type": "parking",
+                "count": 4,
+                "id": 54,
+                "name": "Parking Lot 4"
+            },
+            {
+                "longitude": -68.818991,
+                "latitude": -35.09204,
+                "type": "parking",
+                "count": 5,
+                "id": 55,
+                "name": "Parking Lot 5"
+            },
+            {
+                "longitude": -18.1816768,
+                "latitude": -19.303688,
+                "type": "parking",
+                "count": 6,
+                "id": 56,
+                "name": "Parking Lot 6"
+            },
+            {
+                "longitude": -59.6750823,
+                "latitude": -19.715397,
+                "type": "parking",
+                "count": 7,
+                "id": 57,
+                "name": "Parking Lot 7"
+            },
+            {
+                "longitude": 0.6832572,
+                "latitude": -2.711478,
+                "type": "parking",
+                "count": 8,
+                "id": 58,
+                "name": "Parking Lot 8"
+            },
+            {
+                "longitude": -55.3994411,
+                "latitude": -33.872749,
+                "type": "parking",
+                "count": 9,
+                "id": 59,
+                "name": "Parking Lot 9"
+            }
+        ]
+    </script>
     <script type="text/javascript">
         function initialize() {
             //see styled maps wizard at: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
@@ -35,6 +322,18 @@
             // Custom map pin from SVG
             var yaleMap = function() {
                 var parent = this;
+                this.mapStyle = [{
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        { "visibility": "on" },
+                        { "hue": "#0066ff" }
+                    ]
+                }];
+
+                var stylesConfig = (function (){
+                    return parent.mapStyle;
+                })(); 
+                
                 this.mapPin = [{
                     path: 'M8,0C4.904,0,2.394,2.51,2.394,5.606c0,0.237,0.019,0.468,0.048,0.697c0.479,4.378,5.194,9.425,5.194,9.42c0.084,0.094,0.165,0.153,0.243,0.195l0.004,0.002l0.157,0.049l0.157-0.049l0.004-0.002c0.078-0.042,0.159-0.102,0.243-0.195c0,0,4.648-5.055,5.115-9.435c0.028-0.226,0.047-0.455,0.047-0.688C13.605,2.51,11.096,0,8,0z M8,9.212c-1.988,0-3.606-1.618-3.606-3.606S6.012,2,8,2c1.988,0,3.605,1.618,3.605,3.606S9.988,9.212,8,9.212z',
                     fillColor: 'red',
@@ -44,26 +343,19 @@
                     strokeWeight: 2,
                     strokeOpacity: 0.2
                 }];
-                this.mapStyle = [{
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        { "visibility": "on" },
-                        { "hue": "#0066ff" }
-                    ]
-                }];
+
                 this.mapOptions = [{
-                    parent: this,
                     center: { lat: 41.3069513, lng: -72.9306178},
                     zoom: 15,
-                    //disableDefaultUI removes map controls from the UI
                     disableDefaultUI: true,
-                    styles: function() { debugger; console.log(parent.mapStyle[0]); return parent.mapStyle }
+                    styles: stylesConfig 
                 }];
+
             };
+
             var myMap = new yaleMap();
-            // debugger;
-            console.log(myMap.mapOptions[0].styles() === myMap.mapOptions[0]);
-            //content string is used by the InfoWindow. This can be styled HTML/CSS
+
+
             var contentString=[
                 '<div class="map-marker">',
                     '<header>Test of the header</header>',
@@ -89,8 +381,19 @@
             var map = new google.maps.Map(document.getElementById('map-canvas'),
                     myMap.mapOptions[0]);
 
-            //object container for locations
+            //object container for locationse
             var pubLatLong = new google.maps.LatLng(41.305558,-72.928087);
+            for(var x in buildings){
+                var building = buildings[x],
+                    location = new google.maps.LatLng(building.latitude,building.longitude);
+                    marker   = new google.maps.Marker({
+                        position: location,
+                        title: building.name,
+                        map: map
+                    });
+                google.maps.event.addDomListener(window, 'load', initialize);
+                // debugger;
+            }
 
             // var marker_image='blue_map_marker.png';
             var marker = new MarkerWithLabel({
@@ -112,6 +415,9 @@
         //kicks off the initialization script and loads the map
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+
+
+
 <div id="map-canvas"></div>
 </body>
 </html>
