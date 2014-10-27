@@ -279,11 +279,14 @@
         ];
     </script>
     <script type="text/javascript">
+        var infowindow = null;
         function initialize() {
             //see styled maps wizard at: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
-
+            infowindow = new google.maps.InfoWindow({
+               content: 'Loading...'
+            });
             // Custom map pin from SVG
-            var yaleMap = function() {
+            var customMap = function() {
                 var parent = this;
                 this.mapStyle = [{
                     "elementType": "geometry.fill",
@@ -319,76 +322,66 @@
 
                 this.mapOptions = [{
                     center: { lat: 41.3069513, lng: -72.9306178},
-                    zoom: 15,
+                    zoom: 9,
                     disableDefaultUI: true,
                     styles: stylesConfig 
                 }];
-
             };
 
-            var myMap = new yaleMap();
-
-
-            var contentString=[
-                '<div class="map-marker">',
-                    '<header>Test of the header</header>',
-                        '<main>Hello</main>',
-                    '<footer>Footer text</footer>',
-                '</div>'
-            ].join('\n');
-
-            //InfoWindow can be clicked in order to expose the contentString in a box
-            var pubInfoWindow = new google.maps.InfoWindow({
-                content: contentString
-            });
+            // Instantiate
+            var myMap = new customMap();
 
             //map looks for a div with the given name
             var map = new google.maps.Map(document.getElementById('map-canvas'),
                     myMap.mapOptions[0]);
 
-            //object container for locationse
-            var pubLatLong = new google.maps.LatLng(41.305558,-72.928087);
             for(var x in buildings){
-                var building = buildings[x],
-                    location = new google.maps.LatLng(building.latitude,building.longitude);
-                    marker   = new google.maps.Marker({
-                        position: location,
+                var building = buildings[x];
+                    building.location = new google.maps.LatLng(building.latitude,building.longitude);
+                    building.marker = new MarkerWithLabel({
+                        labelContent: x,
+                        labelAnchor: new google.maps.Point(-7,-4),
+                        labelClass: "labels",
+                        position: building.location,
                         title: building.name,
                         map: map,
-                        icon: myMap.mapPin[0]
+                        icon: myMap.mapPin[0],
+                        html: (function(building){ 
+                            return [
+                                '<div class="map-marker">',
+                                    '<header>'+ building.name +'</header>',
+                                    '<main>'+ building.address +'</main>',
+                                    '<footer>'+ building.phone +'</footer>',
+                                '</div>'
+                            ].join('\n')})(building) 
                     });
-                google.maps.event.addDomListener(window, 'load', initialize);
+                infowindow.setContent(building.marker.html);
+                google.maps.event.addListener(building.marker, 'click', function(){
+                   infowindow.open(map, this);
+                });
             }
+
+
+
             for(var x in parking){
                 var spot = parking[x],
                     location = new google.maps.LatLng(spot.latitude,spot.longitude);
-                    marker   = new google.maps.Marker({
+                    marker   = new MarkerWithLabel({
+                        labelContent: x,
+                        labelAnchor: new google.maps.Point(-3,-5),
+                        labelClass: "labels",
                         position: location,
                         title: spot.name,
                         map: map,
                         icon: myMap.mapParkingPin[0]
                     });
-                google.maps.event.addDomListener(window, 'load', initialize);
+                //Adds event listener that invokes InfoWindow
+                google.maps.event.addListener(marker, 'click', function(){
+                   infowindow.open(map,marker);
+                });
             }
-            // debugger;
-            // var marker_image='blue_map_marker.png';
-            var marker = new MarkerWithLabel({
-                position: pubLatLong,
-                map: map,
-                labelContent: "1",
-                labelAnchor: new google.maps.Point(-3,0),
-                labelClass: "labels",
-                labelInBackground: false,
-                icon: myMap.mapPin[0]
-            });
-           
-
-            //Adds event listener that invokes InfoWindow
-            google.maps.event.addListener(marker, 'click', function(){
-               pubInfoWindow.open(map,marker);
-            });
         }
-        //kicks off the initialization script and loads the map
+        // Kick off the initialization script and load the map
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 
