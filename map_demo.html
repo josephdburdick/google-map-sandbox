@@ -6,12 +6,13 @@
         #map-canvas{height: 90%;}
         .labels {
             color: white;
-            background-color: red;
             font-family: "Lucida Grande", "Arial", sans-serif;
             font-size: 10px;
             text-align: center;
-            width: 10px;
+            
             white-space: nowrap;
+            display: block;
+            padding: 2px;
         }
         .map-marker{
             background: red;
@@ -336,7 +337,11 @@
                     myMap.mapOptions[0]);
 
             for(var x in buildings){
+
                 var building = buildings[x];
+                    building.infowindow = new google.maps.InfoWindow({
+                       content: 'Loading...'
+                    });
                     building.location = new google.maps.LatLng(building.latitude,building.longitude);
                     building.marker = new MarkerWithLabel({
                         labelContent: x,
@@ -355,29 +360,43 @@
                                 '</div>'
                             ].join('\n')})(building) 
                     });
-                infowindow.setContent(building.marker.html);
+            
+                building.infowindow.setContent(building.marker.html);
                 google.maps.event.addListener(building.marker, 'click', function(){
-                   infowindow.open(map, this);
+                   building.infowindow.open(map, this);
                 });
+                console.log(building);
             }
 
 
 
             for(var x in parking){
-                var spot = parking[x],
-                    location = new google.maps.LatLng(spot.latitude,spot.longitude);
-                    marker   = new MarkerWithLabel({
+                var spot = parking[x];
+                    spot.infowindow = new google.maps.InfoWindow({
+                       content: 'Loading...'
+                    });
+                    spot.location = new google.maps.LatLng(spot.latitude,spot.longitude);
+                    spot.marker   = new MarkerWithLabel({
                         labelContent: x,
-                        labelAnchor: new google.maps.Point(-3,-5),
+                        labelAnchor: new google.maps.Point(-7,-4),
                         labelClass: "labels",
-                        position: location,
+                        position: spot.location,
                         title: spot.name,
                         map: map,
-                        icon: myMap.mapParkingPin[0]
+                        icon: myMap.mapParkingPin[0],
+                        html: (function(){ 
+                            return [
+                                '<div class="map-marker">',
+                                    '<header>'+ spot.name +'</header>',
+                                    '<main>'+ spot.address +'</main>',
+                                    '<footer>'+ spot.phone +'</footer>',
+                                '</div>'
+                            ].join('\n')})() 
                     });
+                spot.infowindow.setContent(spot.marker.html);
                 //Adds event listener that invokes InfoWindow
-                google.maps.event.addListener(marker, 'click', function(){
-                   infowindow.open(map,marker);
+                google.maps.event.addListener(spot.marker, 'click', function(){
+                   spot.infowindow.open(map, this);
                 });
             }
         }
